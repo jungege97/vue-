@@ -6,7 +6,7 @@
                 <img src="../assets/logo.png">
             </div>
             <!-- 登录form -->
-            <el-form class="login_form" ref="loginFormRef" :model="loginform" :rules="loginrules">
+            <el-form :model="loginform" :rules="loginrules" ref="loginFormRef" class="login_form">
                 <el-form-item prop="username">
                     <el-input prefix-icon="iconfont icon-user1" v-model="loginform.username"></el-input>
                 </el-form-item>
@@ -36,8 +36,8 @@ export default {
           { required: true, message: '请输入登录名称', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '请输入登录m密码', trigger: 'blur' },
-          { min: 6, max: 15, messagr: '长度在3 到15 字符', trigger: 'blur' }
+          { required: true, message: '请输入登录密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在6到15字符', trigger: 'blur' }
         ]
       }
     }
@@ -45,9 +45,9 @@ export default {
   methods: {
     login() {
       this.$refs.loginFormRef.validate(valid => {
-        if (!valid) return
+        if(!valid) return
         this.$http.post('login', this.loginform).then((res) => {
-          if (res.data.meta.status === 200) {
+          if(res.data.meta.status === 200) {
             this.$message.success('登录成功')
             // 登录成功后将token报存到sessionStorage
             window.sessionStorage.setItem('token', res.data.data.token)
